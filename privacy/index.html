@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reddit IQ — Privacy Policy</title>
+    <meta name="description" content="Privacy policy of the Reddit IQ Chrome extension: local-first, no account, no tracking." />
+    <style>
+      :root {
+        --ink: #1a1440;
+        --ink-soft: #4a4570;
+        --muted: #6f6a8c;
+        --line: #e3e0d2;
+        --bg: #f7f5ee;
+        --surface: #ffffff;
+        --accent: #f8e426;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap { max-width: 760px; margin: 0 auto; padding: 48px 24px 96px; }
+      header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+      h1 { font-size: 30px; line-height: 1.2; margin: 12px 0 4px; letter-spacing: -0.02em; }
+      .updated { color: var(--muted); font-size: 14px; margin: 0 0 32px; }
+      h2 { font-size: 19px; margin: 40px 0 10px; }
+      h3 { font-size: 16px; margin: 24px 0 6px; }
+      p, li { color: var(--ink-soft); }
+      a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
+      ul { padding-left: 22px; }
+      li { margin: 6px 0; }
+      table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 15px; }
+      th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+      th { color: var(--ink); font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; }
+      .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; margin: 18px 0; }
+      .lead { font-size: 17px; color: var(--ink); }
+      code { background: #efecdf; padding: 2px 6px; border-radius: 5px; font-size: 14px; }
+      footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <strong>Reddit IQ</strong>
+      </header>
+
+      <h1>Privacy Policy</h1>
+      <p class="updated">Applies to the Reddit IQ browser extension and this website.</p>
+
+      <p class="lead">
+        Reddit IQ is built local-first. There is no account, no analytics, no advertising and no tracking.
+        Your library — saved posts, tags, notes, analyses — never leaves your device unless you explicitly
+        ask the extension to send something to an AI provider.
+      </p>
+
+      <h2>1. Who we are</h2>
+      <p>
+        Reddit IQ is an independent browser extension published by My Growth Box. It is not affiliated with,
+        endorsed by, or sponsored by Reddit, Inc.
+      </p>
+
+      <h2>2. What stays on your device</h2>
+      <ul>
+        <li><strong>Saved posts, tags, personal notes</strong> and the analyses you generate, stored in your browser's IndexedDB.</li>
+        <li><strong>Your settings</strong> (interface language, theme, thresholds, provider choice), stored in <code>chrome.storage.local</code>.</li>
+        <li><strong>Your API keys</strong>, if you bring your own: kept in <code>chrome.storage.session</code> (erased when the browser closes) unless you explicitly tick “keep this key on this device”. They are never synced, never sent to us, and never included in an export.</li>
+      </ul>
+      <p>Uninstalling the extension deletes this data. You can also erase everything at any time from <em>Settings → Your data → Erase all local data</em>.</p>
+
+      <h2>3. What leaves your device, and only when you click</h2>
+      <p>
+        Reddit IQ never analyses anything in the background. When you press an analysis button, the text of the
+        thread you are reading (post title, body, selected comments) is sent to the AI provider that will process it.
+        That is the only outbound transfer of content, and it happens per click.
+      </p>
+
+      <table>
+        <thead>
+          <tr><th>Mode</th><th>Where the text goes</th><th>What is stored</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>On-device AI</strong><br />(Gemini Nano, default when available)</td>
+            <td>Nowhere. The model runs inside Chrome, locally.</td>
+            <td>Nothing leaves the machine.</td>
+          </tr>
+          <tr>
+            <td><strong>Reddit IQ Free</strong><br />(hosted tier, 10 analyses/day)</td>
+            <td>Our Cloudflare Worker, which forwards the request to the AI provider and returns the result.</td>
+            <td>A random installation identifier and a daily counter. The thread text is processed in memory and is <strong>not logged or stored</strong>.</td>
+          </tr>
+          <tr>
+            <td><strong>Your own API key</strong><br />(Groq, OpenRouter, OpenAI, DeepSeek, Gemini, Claude, Ollama)</td>
+            <td>Directly from your browser to the provider you chose. We are not involved.</td>
+            <td>Nothing on our side. The provider's own policy applies.</td>
+          </tr>
+          <tr>
+            <td><strong>Extractive mode</strong><br />(no AI)</td>
+            <td>Nowhere. Local text processing only.</td>
+            <td>Nothing leaves the machine.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>4. The Reddit IQ Free tier in detail</h2>
+      <p>
+        To offer a few free analyses without asking you to create an account, the extension calls a small
+        server (a Cloudflare Worker) that holds our provider credentials. That service receives:
+      </p>
+      <ul>
+        <li>the thread text you asked to analyse (processed in memory, not retained);</li>
+        <li>a <strong>random installation identifier</strong> generated locally (a UUID, not tied to you, your account or your browsing);</li>
+        <li>the technical data any HTTP request carries, including your IP address, used transiently to rate-limit abuse.</li>
+      </ul>
+      <p>
+        No advertising identifier, no fingerprinting, no cross-site tracking. The free tier is billed by us; it
+        does not require a payment method and does not create a profile.
+      </p>
+
+      <h2>5. Third-party AI providers</h2>
+      <p>
+        Depending on the configuration of the free tier and on the key you provide, thread text may be processed by
+        one of the following providers. Each applies its own privacy policy:
+      </p>
+      <ul>
+        <li>Cloudflare Workers AI — <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">cloudflare.com/privacypolicy</a></li>
+        <li>LLM7.io — <a href="https://llm7.io" rel="noopener">llm7.io</a></li>
+        <li>Google (Gemini) — <a href="https://policies.google.com/privacy" rel="noopener">policies.google.com/privacy</a></li>
+        <li>Groq — <a href="https://groq.com/privacy-policy/" rel="noopener">groq.com/privacy-policy</a></li>
+        <li>OpenRouter — <a href="https://openrouter.ai/privacy" rel="noopener">openrouter.ai/privacy</a></li>
+        <li>DeepSeek — <a href="https://www.deepseek.com/privacy" rel="noopener">deepseek.com/privacy</a></li>
+        <li>Anthropic — <a href="https://www.anthropic.com/legal/privacy" rel="noopener">anthropic.com/legal/privacy</a></li>
+        <li>OpenAI — <a href="https://openai.com/policies/privacy-policy" rel="noopener">openai.com/policies/privacy-policy</a></li>
+        <li>Ollama, if you run it yourself, stays entirely on your machine.</li>
+      </ul>
+
+      <h2>6. What we never do</h2>
+      <ul>
+        <li>No account, no sign-up, no email collection.</li>
+        <li>No analytics, no telemetry, no crash reporting to a third party.</li>
+        <li>No advertising, no selling or sharing of data, no profiling.</li>
+        <li>No reading of pages other than the Reddit thread you have open.</li>
+        <li>No background analysis: nothing is processed until you click.</li>
+      </ul>
+
+      <h2>7. Permissions, and why</h2>
+      <table>
+        <tbody>
+          <tr><td><code>sidePanel</code></td><td>The extension's interface is a side panel, next to Reddit.</td></tr>
+          <tr><td><code>storage</code>, <code>unlimitedStorage</code></td><td>Your local library and settings; unlimited storage prevents the browser from evicting your saved posts.</td></tr>
+          <tr><td><code>scripting</code></td><td>Read the thread from Reddit tabs that were already open before installation.</td></tr>
+          <tr><td><code>contextMenus</code></td><td>“Archive this post” without opening the panel.</td></tr>
+          <tr><td><code>*://*.reddit.com/*</code></td><td>Read the page you are on. Only reddit.com.</td></tr>
+          <tr><td>Optional host permissions</td><td>Requested one by one, only when you configure an AI provider or the free tier: the extension cannot contact them otherwise.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>8. Your rights</h2>
+      <p>
+        Since your content is stored locally, you exercise your rights directly: <em>Settings → Your data</em> lets you
+        export everything (JSON), erase everything, or inspect storage usage. For the free tier, the only data
+        processed is the thread text of a single request and a daily counter keyed by a random identifier; neither
+        is linked to an identity, and both expire within 48 hours.
+      </p>
+      <p>If you are in the EU/EEA, you may also contact us to exercise your GDPR rights at the address below.</p>
+
+      <h2>9. Children</h2>
+      <p>Reddit IQ is not directed at children under 13 and does not knowingly process their data.</p>
+
+      <h2>10. Changes</h2>
+      <p>
+        If this policy changes materially, the “last updated” date above changes and the new version is published at
+        this URL. Continued use after an update constitutes acceptance.
+      </p>
+
+      <h2>11. Contact</h2>
+      <div class="card">
+        <p style="margin:0">
+          Questions about privacy: <a href="mailto:privacy@mygrowthbox.com">hello@mygrowthbox.com</a><br />
+          Feedback and bug reports: <a href="https://mygrowthbox.com/en/reddit-iq-feedback/">mygrowthbox.com/en/reddit-iq-feedback</a>
+        </p>
+      </div>
+
+      <footer>
+        Reddit IQ is not affiliated with Reddit, Inc. “Reddit” is a trademark of Reddit, Inc.
+      </footer>
+    </div>
+  </body>
+</html>
